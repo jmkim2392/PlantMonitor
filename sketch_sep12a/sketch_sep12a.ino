@@ -1,4 +1,4 @@
-
+// sudo chmod a+rw /dev/ttyACM0
 
 //Libraries
 #include <Adafruit_Sensor.h>
@@ -34,7 +34,8 @@ void loop()
    //delay(1000); //short delay for faster response to light.
 
    //delay(2000);
-   //Read data and store it to vriables humidity and temp
+   int delayHour = 1000*60*60;
+   //Read data and store it to variables humidity and temp
    humidity = dht.readHumidity();
    temp = dht.readTemperature();
    //Check if read failed
@@ -42,7 +43,7 @@ void loop()
     Serial.println("Error, sensor read failure");
    }
    else { 
-   delay(2000); //allows buffer time for sensor to read before printing.
+   delay(1000); //
    //Print temp and humidity values to serial monitor
    Serial.print("Humidity: ");
    Serial.print(humidity);
@@ -50,7 +51,30 @@ void loop()
    Serial.print(temp);
    Serial.println(" Celsius");
    }
-   delay(10000); //Delay 2 sec.
+   Import processing.serial.*;
+   Serial mySerial;
+   PrintWriter output;
+   void setup() {
+    mySerial = new Serial(this, Serial.list()[0],9600);
+    output = createWriter("data.txt");
+   }
+   void draw() {
+    if(mySerial.available() >0) {
+      String value = mySerial.readString();
+      if (value != null) {
+        output.println(value);
+        
+      }
+    }
+   }
+   void keyPressed(){
+    output.flush(); //Writes the reminaing data to the file
+    output.close();// Finishes the file
+    exit();//Stops the program
+   }
+
+   delay(10000); //delay 10 sec for testing
+   //delay(delayHour); //Delay 1 Hour.
 
    
 }
