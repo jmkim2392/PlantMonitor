@@ -1,0 +1,3 @@
+null
+HumHumidity: 48.60 %, Temp: 23.80 Celsius
+
