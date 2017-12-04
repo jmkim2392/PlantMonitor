@@ -1,6 +1,6 @@
 import pyrebase
 import serial
-
+import datetime
 
 config = {
     "apiKey": "AIzaSyDQsG8ujA02UXqD87t0FPZDal5DBa6YlGk",
@@ -11,15 +11,8 @@ config = {
 
 firebase = pyrebase.initialize_app(config)
 
-db = firebase.database()
-db.child("users").child("Morty")
-
-
-data = {"name": "Mortimer ' Morty' Smith" }
-db.child("users").push(data)
-
-
-
+humidity= 0
+temperature = 0
 ser = serial.Serial('/dev/ttyACM0', baudrate = 9600, timeout=1) #port name, connect rate, waittime to receive data
 var = 1
 while var == 1 :
@@ -27,5 +20,9 @@ while var == 1 :
     arduinoData = ser.readline().decode('ascii')
     if arduinoData != "":
         print(arduinoData)
+timestamp = datetime.datetime.now().strftime("%Y-%m-%d | %H:%M")
+
+int(filter(arduinoData.isdigit, humidity))
+int(filter(arduinoData.isdigit, temperature))
 
 
