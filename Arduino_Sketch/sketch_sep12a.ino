@@ -42,13 +42,13 @@ void loop()
   else {
     delay(1000); //
     //Print temp and humidity values to serial monitor
-    Serial.print("H: ");
+    Serial.print("H");
     Serial.println(humidity);
-    Serial.print("T: ");
+    Serial.print("T");
     Serial.println(temp);
   }
   delay(10000);
-  //delay(600000); //delay 10 sec for testing
+  //delay(60000);
   //delay(delayHour); //Delay 1 Hour.
 }
 
